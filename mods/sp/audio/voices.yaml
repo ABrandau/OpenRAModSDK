@@ -1,452 +1,1178 @@
-SWVoice:
-	Voices:
-		Build: n_swdetected#s_00-i216
-		SuperweaponFired: n_swlaunch
+CLOUD1:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	-Selectable:
+	-SelectionDecorations:
+	-UpdatesPlayerStatistics:
+	-ActorLostNotification:
+	-AppearsOnRadar:
+	Aircraft:
+		CruiseAltitude: 0
+		TurnSpeed: 6
+		Repulsable: false
+		AltitudeVelocity: 400
+		Speed: 15
+		MoveIntoShroud: true
+	-Targetable@GROUND:
+	-Targetable@AIRBORNE:
+	-RevealsShroud:
+	-Voiced:
+	Health:
+		HP: 9
+	SelfHealing:
+		Step: -1
+		Delay: 25
+		HealIfBelow: 200
+		DamageTypes: CloudDie
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	WithDeathAnimation:
+		UseDeathTypeSuffix: False
+		DeathSequencePalette: effectalpha
+		DeathPaletteIsPlayerPalette: false
+	RejectsOrders:
+	Cloak@CLOAKGENERATOR:
+		RequiresCondition: HolaSoyVinceConSlapShopMiraLaPapaUnCorteNoSePuedeCortar
+	RenderSprites:
+		Image: cloud1
+		Palette: effectalpha
+	BodyOrientation:
+		QuantizedFacings: 32
+	AttackWander:
+	WithDeathAnimation:
+		DeathSequence: die
+		UseDeathTypeSuffix: false
+	ExplodeWeapon:
+		Weapon: CloudDamage
+	-GrantConditionOnDamageState@smoke:
+	-SmokeParticleEmitter:
+	Interactable:
+	-GainsExperience:
+	-GrantConditionOnDamageState@spawnsparks:
+	-ExplodeWeapon@spawnsparks:
+	-Explodes@Shrapnel:
 
-Infantry:
-	Voices:
-		Select: 15-i000, 15-i004, 15-i012, 15-i048
-		Move: 15-i018, 15-i024, 15-i044
-		Attack: 15-i044, 15-i050, 15-i044, 15-i046
-		Action: 15-i044, 15-i050, 15-i044, 15-i046
-		# Feedback: 15-i058, 15-i064 # TODO
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+ORCA:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^BasicStealthDetection
+	Inherits@3: ^9CellVision
+	Inherits@4: ^UsesAmmunition
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Orca Fighter
+	Buildable:
+		Description: Fast assault gunship with dual missile launchers.\n\nGood vs: Vehicles, Aircraft\n\nSpecial:\n- Can attack air\n- detects cloaked units.
+		Queue: Air
+		BuildPaletteOrder: 1
+		Prerequisites: ~gahpad
+	Selectable:
+		Bounds: 30,24
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 150
+		MoveIntoShroud: true
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	Health:
+		HP: 12000
+	Armament:
+		Weapon: FighterHellfire
+		PauseOnCondition: !ammo
+	Armament@AA:
+		Weapon: FighterHellfireAA
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	AmmoPool:
+		Ammo: 10
+		PipCount: 5
+		PipType: Ammo
+		ReloadCount: 2
+		ReloadDelay: 50
+		PipTypeEmpty: AmmoEmpty
+		AmmoCondition: ammo
+	SpawnActorOnDeath:
+		Actor: ORCA.Husk
 
-Rocket:
-	Voices:
-		Select: 15-i000, 15-i032, 15-i048
-		Move: 15-i008, 15-i014, 15-i026
-		Attack: 15-i008, 15-i014, 15-i026, 15-i050, 15-i060
-		Action: 15-i008, 15-i014, 15-i026, 15-i050, 15-i060
-		# Feedback: 15-i058, 15-i064 #TODO
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+ORCAB:
+	Inherits: ^CombatPlane
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^11CellVision
+	Inherits@3: ^UsesAmmunition
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Orca Bomber
+	Buildable:
+		Description: Heavy carpet bomber.\n\nGood vs: Ground Targets\n\nSpecial:\n- Deals AoE damage.
+		Queue: Air
+		BuildPaletteOrder: 3
+		Prerequisites: ~gahpad, gatech
+	Selectable:
+		Bounds: 30,24
+	Aircraft:
+		MaximumPitch: 120
+		TurnSpeed: 4
+		IdealSeparation: 256
+		Speed: 130
+		AirborneCondition: airborne
+		MoveIntoShroud: true
+	Health:
+		HP: 22500
+	Armament@primary:
+		Weapon: OBBombFrontal
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 20
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	AmmoPool:
+		Ammo: 20
+		PipCount: 2
+		ReloadCount: 10
+		ReloadDelay: 125
+		PipType: Ammo
+		PipTypeEmpty: AmmoEmpty
+		AmmoCondition: ammo
+	Hovers@CRUISING:
+		RequiresCondition: cruising
+	SpawnActorOnDeath:
+		Actor: ORCAB.Husk
 
-Umagon:
-	Voices:
-		Select: 10-i000, 10-i002, 10-i004, 10-i006
-		Move: 10-i016, 10-i020, 10-i022
-		Attack: 10-i024, 10-i026, 10-i028, 10-i030
-		Action: 10-i024, 10-i026, 10-i028, 10-i030
-		Die: dedgirl1, dedgirl2, dedgirl4
-		Burned: dedgirl3
-		Zapped: electro1
+DPOD:
+	Inherits: ^CombatHelicopter
+	Valued:
+		Cost: 10
+	Tooltip:
+		Name: Drop Pod
+	Aircraft:
+		LandWhenIdle: yes
+		TurnSpeed: 5
+		Speed: 160
+		InitialFacing: 0
+	Health:
+		HP: 6000
+	RevealsShroud:
+		Range: 0
+	Cargo:
+		Types: Infantry
+		MaxWeight: 1
+		PipCount: 1
+		UnloadVoice: Move
+	Armament:
+		Weapon: Vulcan2
+		PauseOnCondition: !ammo
+	RenderSprites:
+	RenderVoxels:
+	WithVoxelBody:
+	AttackAircraft:
+		Voice: Attack
+	AmmoPool:
+		Ammo: 5
+		PipCount: 5
+		PipType: Ammo
+		PipTypeEmpty: AmmoEmpty
+		AmmoCondition: ammo
+	AutoTarget:
 
-Ghost:
-	Voices:
-		Select: 14-i000, 14-i002, 14-i004
-		Move: 14-i008, 14-i010, 14-i012, 14-i014
-		Attack: 14-i008, 14-i010, 14-i014, 14-i016
-		Action: 14-i008, 14-i010, 14-i014, 14-i016
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+DSHP:
+	Inherits: ^CombatHelicopter
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Dropship
+	Aircraft:
+		LandWhenIdle: yes
+		TurnSpeed: 10
+		Speed: 200
+		InitialFacing: 0
+		Repulsable: False
+		AltitudeVelocity: 500
+	-Targetable@AIRBORNE:
+	-Targetable@GROUND:
+	FlyAwayOnIdle:
+	Health:
+		HP: 20000
+	RejectsOrders:
+	-RevealsShroud:
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 5
+		PipCount: 5
+		UnloadVoice: Move
+	SpawnActorOnDeath:
+		Actor: DSHP.Husk
+	RenderSprites:
+	WithVoxelBody:
+	RenderVoxels:
+		Scale: 20
+	-WithFacingSpriteBody:
+	Cloak@Dropship:
+		RequiresCondition: !DropshipCloak
+		IsPlayerPalette: true
+		CloakTypes: JohnCena
+	ExternalCondition@DropshipCloak:
+		Condition: DropshipCloak
+	Interactable:
+		Bounds: 1,1
+	Selectable:
+		Bounds: 1,1
+	SelectionDecorations:
+		Bounds: 1,1
 
-Medic:
-	Voices:
-		Select: 20-i000, 20-i004, 20-i006
-		Move: 20-i008, 20-i010, 20-i012
-		Action: 20-i016, 20-i018, 20-i020
-		Die: dedgirl1, dedgirl2, dedgirl4
-		Burned: dedman2
-		Zapped: electro1
+ORCATRAN:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^6CellVision
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Orca Transport
+	Buildable:
+		Queue: Air
+		BuildPaletteOrder: 10
+		Prerequisites: ~disabled
+	RenderSprites:
+	WithVoxelBody:
+	RenderVoxels:
+	-WithFacingSpriteBody:
+	Aircraft:
+		LandWhenIdle: yes
+		TurnSpeed: 5
+		Speed: 84
+		InitialFacing: 0
+		LandableTerrainTypes: Clear, Ice, Rough, Road, DirtRoad, Ground, Green, Tiberium, BlueTiberium
+	Health:
+		HP: 20000
+	Cargo:
+		Types: Infantry
+		MaxWeight: 5
+		PipCount: 5
+		UnloadVoice: Move
+	SpawnActorOnDeath:
+		Actor: ORCATRAN.Husk
+	-GainsExperience:
 
-Engineer:
-	Voices:
-		Select: 19-i000, 19-i002, 19-i006
-		Move: 19-i010, 19-i016
-		Action: 19-i018, 19-i016
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+APACHE:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^BasicStealthDetection
+	Inherits@3: ^9CellVision
+	Inherits@4: ^UsesAmmunition
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Harpy
+	Buildable:
+		Description: Scout Helicopter armed with chain guns.\n\nGood vs: Infantry, Aircraft\n\nSpecial:\n- Can attack air\n- Can detect stealth
+		Queue: Air
+		BuildPaletteOrder: 1
+		Prerequisites: ~nahpad
+	Selectable:
+		Bounds: 30,24
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 150
+		MoveIntoShroud: true
+	Health:
+		HP: 12000
+	Armament:
+		Weapon: HarpyClaw
+		PauseOnCondition: !ammo
+	Armament@432:
+		Weapon: HarpyClawAA
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	AmmoPool:
+		Ammo: 10
+		PipCount: 5
+		ReloadCount: 2
+		PipType: Ammo
+		PipTypeEmpty: AmmoEmpty
+		ReloadDelay: 50
+		AmmoCondition: ammo
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	WithIdleOverlay@ROTORAIR:
+		Offset: 85,0,384
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTORGROUND:
+		Offset: 85,0,384
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	SpawnActorOnDeath:
+		Actor: APACHE.Husk
 
-Weed:
-	Voices:
-		Select: 15-i000, 15-i006, 15-i040, 15-i042
-		Move: 15-i024, 15-i044
-		Attack: 15-i006, 15-i046
-		Action: 15-i006, 15-i046
-		# Feedback: 15-i058, 15-i064 # TODO
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+SCRIN:
+	Inherits: ^CombatPlane
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^UsesAmmunition
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1500
+	Tooltip:
+		Name: Banshee Fighter
+	Buildable:
+		Description: Advanced fighter-bomber craft armed with twin plasma cannons.\n\nGood vs: Vehicles, Aircraft\n\nSpecial:\n- Can attack air
+		Queue: Air
+		BuildPaletteOrder: 4
+		Prerequisites: ~nahpad, natech
+	Selectable:
+		Bounds: 30,24
+	Voiced:
+		VoiceSet: Scrin
+	Aircraft:
+		MaximumPitch: 90
+		TurnSpeed: 6
+		Speed: 190
+		AirborneCondition: airborne
+		MoveIntoShroud: true
+	Health:
+		HP: 20000
+	Armament@1:
+		Weapon: Proton
+		PauseOnCondition: !ammo
+	Armament@2:
+		Weapon: ProtonAA
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 20
+	AmmoPool:
+		Ammo: 27
+		PipCount: 3
+		ReloadCount: 9
+		ReloadDelay: 83
+		PipType: Ammo
+		PipTypeEmpty: AmmoEmpty
+		AmmoCondition: ammo
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	DeathSounds:
+	SpawnActorOnDeath:
+		Actor: SCRIN.Husk
 
-Spy:
-	Voices:
-		Select: 21-i000, 21-i002, 21-i004
-		Move: 21-i010, 21-i012, 21-i016
-		Action: 21-i010, 21-i012, 21-i022
-		# Feedback: 21-i000, 21-i002 # TODO
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+CERBERUS:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Paladin Cruiser
+	Buildable:
+		Description: High tech frigate armed with a mobile stealth generator.\n\nGood vs: Ground Targets\n\nSpecial:\n- Cloaks friendly units next to it.
+		Queue: Air
+		BuildPaletteOrder: 5
+		Prerequisites: ~nahpad, natech
+	Selectable:
+		Bounds: 90,45
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 60
+		Repulsable: true
+		MoveIntoShroud: true
+	Health:
+		HP: 45000
+	Armament:
+		Weapon: CerberusLazor
+		LocalOffset: 500,0,0, 150, 400, 0, 150, -400, 0, -600,0,0
+	AttackAircraft:
+		FacingTolerance: 64
+		Voice: Attack
+	RenderSprites:
+		PlayerPalette: playertemperate
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: CERBERUS.Husk
+	ProximityExternalCondition:
+		Condition: cloakgenerator
+		Range: 5c0
+		EnableSound: cloak5.aud
+		DisableSound: cloak5.aud
+		AffectsParent: False
+	-Cloak@CLOAKGENERATOR:
+	WithRangeCircle:
+		Range: 4c0
+		Type: cloakgenerator
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
 
-Hijacker:
-	Voices:
-		Select: 24-i000, 24-i002, 24-i004, 24-i006
-		Move: 24-i008, 24-i010, 24-i012, 24-i014
-		Action: 24-i016, 24-i018, 24-i020, 24-i022, 24-i024
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+MUTHELI:
+	Inherits: ^CombatHelicopter
+	Inherits@2: ^AutoTargetAllAssaultMove
+	Inherits@3: ^BasicStealthDetection
+	Inherits@4: ^MutRender
+	Inherits@5: ^9CellVision
+	Inherits@6: ^UsesAmmunition
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Gargoyle
+	Buildable:
+		Description: Heavy assault gunship with an auto-cannon.\n\nGood vs: Everything\n\nSpecial:\n- Can attack air\n- detects cloaked units.
+		Queue: Air
+		BuildPaletteOrder: 1
+		Prerequisites: ~muair
+	Selectable:
+		Bounds: 30,24
+	Aircraft:
+		TurnSpeed: 7
+		Speed: 150
+		MoveIntoShroud: true
+		RearmBuildings: muair, gahpad, nahpad
+	Health:
+		HP: 12000
+	WithIdleOverlay@ROTORAIR:
+		Offset: 300,0,500
+		Sequence: rotor
+		RequiresCondition: airborne
+	WithIdleOverlay@ROTORGROUND:
+		Offset: 300,0,500
+		Sequence: slow-rotor
+		RequiresCondition: !airborne
+	Armament@primary:
+		Weapon: GargoylACannon
+		MuzzleSequence: muzzle
+		LocalOffset: 950,0,0
+		PauseOnCondition: !ammo
+	Armament@AA:
+		Weapon: GargoylACannonAA
+		MuzzleSequence: muzzle
+		LocalOffset: 950,0,0
+		PauseOnCondition: !ammo
+	WithMuzzleOverlay:
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	AmmoPool:
+		Ammo: 10
+		PipCount: 5
+		ReloadCount: 2
+		ReloadDelay: 50
+		PipType: Ammo
+		PipTypeEmpty: AmmoEmpty
+		AmmoCondition: ammo
+	AutoTarget:
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	SpawnActorOnDeath:
+		Actor: MUTHELI.Husk
 
-AlienLimpet:
-	Voices:
-		Select: limpc3, limpc4, limpq3, limpq4
-		Move: limpc3, limpc4, limpq3, limpq4
-		Unload: limpc3, limpc4, limpq3, limpq4
-		Action: limpc3, limpc4, limpq3, limpq4
-		Attack: limpc3, limpc4, limpq3, limpq4
-		Die: fiend2
-		Burned: 22-n106
-		Zapped: electro1
+WETP:
+	Inherits: ^CombatPlane
+	Inherits@2: ^AutoTargetAllAssaultMove
+	Inherits@3: ^UsesAmmunition
+	Inherits@4: ^9CellVision
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Falcon
+	Buildable:
+		Description: Fast jet that throws a small tiberium bomb.\n\nGood vs: Ground Targets.\nSpecial:\n- Can mutate killed enemy units\n- Emits tiberium gas damaging nearby units.\n- Moves at high speed when attacking.\n- Has very low vision.
+		Queue: Air
+		BuildPaletteOrder: 7
+		Prerequisites: ~muair, muhall
+	Selectable:
+		Bounds: 30,24
+	Aircraft:
+		MaximumPitch: 120
+		TurnSpeed: 9
+		Speed: 150
+		AirborneCondition: airborne
+		MoveIntoShroud: true
+	Health:
+		HP: 13000
+	Armament:
+		Weapon: FalconPunch
+		PauseOnCondition: !ammo
+	AttackAircraft:
+		FacingTolerance: 20
+	AmmoPool:
+		Ammo: 1
+		PipCount: 1
+		ReloadCount: 1
+		ReloadDelay: 250
+		PipType: Ammo
+		PipTypeEmpty: AmmoEmpty
+		AmmoCondition: ammo
+	AutoTarget:
+		ScanRadius: 6
+		InitialStance: HoldFire
+		InitialStanceAI: ReturnFire
+	RenderSprites:
+	Hovers@CRUISING:
+		RequiresCondition: cruising
+	SpawnActorOnDeath:
+		Actor: WETP.Husk
+	GrantConditionOnActivity:
+		Condition: SpeedBuff
+	SpeedMultiplier@Supersonic:
+		RequiresCondition: SpeedBuff
+		Modifier: 300
 
-CyborgCommando:
-	Voices:
-		Select: 23-i000, 23-i002, 23-i004, 23-i006
-		Move: 23-i008, 23-i010, 23-i012, 23-i016
-		Action: 23-i008, 23-i010, 23-i012, 23-i016
-		Attack: 23-i014, 23-i018, 23-i020, 23-i022
-		Die: 22-n104, 22-n108
-		Burned: 22-n106
-		Zapped: electro1
+MUTQUEEN:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^SpriteActor
+	Inherits@2: ^MutRender
+	Inherits@3: ^AutoTargetAllAssaultMove
+	Inherits@4: ^PermanentSelfHeal
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Queen
+	Buildable:
+		Description: Harasser and mutator.\n\nGood vs: Vehicles, Buildings\n\nSpecial:\n- Can mutate killed enemy units\n- Lays eggs via deploy which later hatch as crabs that are hostile to anyone.
+		Queue: Air
+		BuildPaletteOrder: 6
+		Prerequisites: ~muair
+	Selectable:
+		Bounds: 30,24
+	Voiced:
+		VoiceSet: Fiend
+	Aircraft:
+		TurnSpeed: 6
+		Speed: 125
+		Repulsable: true
+		MoveIntoShroud: true
+		IdealSeparation: 1c0
+	Health:
+		HP: 10000
+	-WithFacingSpriteBody:
+	WithInfantryBody:
+		IdleSequences: run
+		StandSequences: run
+	BodyOrientation:
+		QuantizedFacings: 8
+	GrantTimedConditionOnDeploy:
+		DeployedCondition: deployed
+		CooldownTicks: 4500
+		DeployedTicks: 15
+		StartsFullyCharged: True
+	ExplodeWeapon:
+		Weapon: EggElevator
+		RequiresCondition: deployed
+	AttackAircraft:
+		FacingTolerance: 20
+	Armament@1:
+		Weapon: QueenShard
+	-GrantConditionOnDamageState@spawnsparks:
+	-ExplodeWeapon@spawnsparks:
+	-ExternalCondition@spawnsparks:
+	-GrantConditionOnDamageState@smoke:
+	-SmokeParticleEmitter:
+	-ExternalCondition@smoketrail:
+	-Explodes@Shrapnel:
+	Explodes:
+		Weapon: QueenExplode
+		EmptyWeapon: QueenExplode
 
-Mutant:
-	Voices:
-		Select: 15-i032, 15-i048
-		Move: 15-i008,15-I014,15-I026
-		Attack: 15-i008,15-I014,15-I026,15-I050,15-I060
-		Action: 15-i008,15-I014,15-I026,15-I050,15-I060
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+MUTBIRD:
+	Inherits@3: MUTQUEEN
+	Tooltip:
+		Name: Seeder Bird
+	-Buildable:
 
-Tratos:
-	Voices:
-		Select: 13-i000, 13-i002, 13-i004, 13-i006
-		Move: 13-i008, 13-i010, 13-i012, 13-i014
-		Attack: 13-i016, 13-i018, 13-i020
-		Action: 13-i016, 13-i018, 13-i020
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+STORMRIDER:
+	Inherits: ^CombatPlane
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@3: ^9CellVision
+	Inherits@4: ^ScrinAircratVoice
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Storm Rider
+	Buildable:
+		Description: Scrin fighter equiped with a blaster turret\n\nStrong vs Aircraft.\n\nSpecial:\n- Can fire while moving.\n- Can absorb essence from killed units to heal.\n- Can attack enemies while moving.
+		Queue: Air
+		BuildPaletteOrder: 1
+		Prerequisites: ~scrair
+	Selectable:
+		Bounds: 30,24
+	Hovers:
+	Aircraft:
+		MaximumPitch: 90
+		TurnSpeed: 8
+		Speed: 170
+		AirborneCondition: airborne
+		MoveIntoShroud: true
+	Health:
+		HP: 10000
+	Armament:
+		Weapon: StormRiderBlast
+	Armament@AA:
+		Weapon: StormRiderBlastAA
+	-ReturnOnIdle:
+	AttackAircraft:
+		Voice: Attack
+		FacingTolerance: 120
+	Turreted:
+	SpawnActorOnDeath:
+		Actor: STORMRIDER.Husk
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
 
-Oxanna:
-	Voices:
-		Select: 11-i000, 11-i002, 11-i004, 11-i006
-		Move: 11-i008, 11-i010, 11-i012
-		Attack: 11-i014, 11-i016, 11-i018
-		Action: 11-i014, 11-i016, 11-i018
-		Die: dedgirl1, dedgirl2, dedgirl4
-		Burned: dedgirl3
-		Zapped: electro1
+DRACHE:
+	Inherits: ^CombatHelicopter
+	Inherits@5: ^8CellVision
+	Inherits@2: ^ScrinRender
+	Inherits@4: ^ScrinAircratVoice
+	Inherits@Shadow: ^AircraftShadow
+	Buildable:
+		Queue: Air
+		BuildPaletteOrder: 110
+		Description: Deploys into a Host Station.\n\nSpecial:\n- Provides a build radius for structures.\n- Maximun production speed is reached with 7 Conyards.\n- Max production speed reduces production time by 50%.\n- Has increased HP when deployed.
+		Prerequisites: ~scrair
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Scrin Host Station
+	Selectable:
+		Bounds: 100, 85, 0, -24
+		Priority: 4
+	Health:
+		HP: 60000
+	Targetable@MindControlInmune:
+		TargetTypes: MindControlInmune
+	Aircraft:
+		TurnSpeed: 3
+		Speed: 50
+		MoveIntoShroud: true
+		LandableTerrainTypes: Clear, Ice, Rough, Road, DirtRoad, Ground, Green, Tiberium, BlueTiberium
+	MustBeDestroyed:
+		RequiredForShortGame: true
+	BaseBuilding:
+	Transforms:
+		IntoActor: drached
+		Offset: -1,-1
+		Facing: 96
+		TransformSounds: place2.aud
+		DeployCursor: deploy
+		NoTransformSounds:
+		Voice: Move
+	SelectionDecorations:
+	WithFacingSpriteBody:
+		Sequence: stand
+	Hovers:
+	SpawnActorOnDeath:
+		Actor: DRACHE.Husk
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
+	-GainsExperience:
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
 
-ToxinTrooper:
-	Voices:
-		Select: 42-i000, 42-i002, 42-i004
-		Move: 42-i006, 42-i008, 42-i010, 42-i012
-		Attack: 42-i006, 42-i008, 42-i010, 42-i012
-		Action: 42-i006, 42-i008, 42-i010, 42-i012
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+SCRGLYDER1:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^ScrinRender
+	Inherits@3: ^BasicStealthDetection
+	Inherits@4: ^ScrinAircratVoice
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Glider
+	Selectable:
+		Bounds: 40,30
+	Transforms:
+		IntoActor: scrglyder2
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 120
+		Repulsable: true
+		MoveIntoShroud: true
+		LandableTerrainTypes: Clear, Ice, Rough, Road, DirtRoad, Ground, Green, Tiberium, BlueTiberium, Water
+	Health:
+		HP: 20000
+	Armament:
+		Weapon: Glyder1Cannon
+		LocalOffset: 0,0,-100
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: GLYDER1.Husk
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
 
-Slavick:
-	Voices:
-		Select: , 12-i002, 12-i004
-		Move: 12-i006, 12-i008, 12-i010
-		Attack: 12-i012, 12-i014, 12-i016
-		Action: 12-i012, 12-i014, 12-i016
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+SCRDESTROYER:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^ScrinRender
+	Inherits@3: ^7CellVision
+	Inherits@4: ^ScrinAircratVoice
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Destroyer
+	Buildable:
+		Description: Scrin light frigate, designed for long range harassment.\n\nGood vs Ground targets.\n\nSpecial:\n- Can absorb essence from killed units to heal.
+		Queue: Air
+		BuildPaletteOrder: 9
+		Prerequisites: ~scrair, scrradr
+	Selectable:
+		Bounds: 85,50,0,-12
+	AutoTarget:
+		ScanRadius: 15
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 60
+		Repulsable: true
+		MoveIntoShroud: true
+	Targetable@Essence:
+		TargetTypes: ScrinUnit
+	Health:
+		HP: 25000
+	Armament:
+		Weapon: DestroyerCannon
+		LocalOffset: 300,0,0
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+		TargetFrozenActors: True
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: SCRDESTROYER.Husk
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
 
-Fiend:
-	Voices:
-		Select: fiend1
-		Attack: fiend1
-		Action: fiend1
-		Move: fiend1
-		Die: fiend1
-		Burned: fiend1
-		Zapped: fiend1
+SCRTRANS:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^9CellVision
+	Inherits@2: ^ScrinRender
+	Inherits@3: ^ScrinAircratVoice
+	Inherits@4: ^LowerSelectionPriority
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 800
+	Tooltip:
+		Name: Scrin Transport
+	Buildable:
+		Description: Scrin transport.\n\nSpecial\n- Can carry up to 3 vehicles or ten soldiers.\n- Lands whenever its able to.
+		Queue: Air
+		Prerequisites: ~scrair, scrdepot
+		BuildPaletteOrder: 8
+	Cargo:
+		Types: Infantry, Vehicle
+		MaxWeight: 10
+		PipCount: 10
+		UnloadVoice: Unload
+		LoadingCondition: notmobile
+	Selectable:
+		Bounds: 90,50
+		Priority: 4
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 150
+		LandWhenIdle: true
+		Repulsable: true
+		MoveIntoShroud: true
+		LandableTerrainTypes: Clear, Ice, Rough, Road, DirtRoad, Ground, Green, Tiberium, BlueTiberium
+	Health:
+		HP: 7000
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: SCRTRANS.Husk
+	-GainsExperience:
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
 
-Vehicle:
-	Voices:
-		Select: 25-i000, 25-i002, 25-i004, 25-i006
-		Move: 25-i012, 25-i014, 25-i016, 25-i018, 25-i022
-		Attack: 25-i014, 25-i022, 25-i024, 25-i026
-		Action: 25-i014, 25-i022, 25-i024, 25-i026
-		Unload: 25-i018
+SCRCARRIER:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^ScrinRender
+	Inherits@3: ^BasicStealthDetection
+	Inherits@4: ^ScrinAircratVoice
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Assault Carrier
+	Buildable:
+		Description: Scrin frigate.\n\nStrong vs Vehicles, Aircraft\n\nSpecial:\n- Sends fighters at enemies.\n- Can attack Air.\n- Detects cloaked units.\n- Can absorb essence from killed enemies to heal.\n- Can attack enemies while moving.
+		Queue: Air
+		BuildPaletteOrder: 11
+		Prerequisites: ~scrair, scrtech
+	Targetable@Essence:
+		TargetTypes: ScrinUnit
+	Selectable:
+		Bounds: 90,55
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 50
+		Repulsable: true
+		MoveIntoShroud: true
+	Health:
+		HP: 60000
+	Targetable@GROUND:
+		TargetTypes: Vehicle, MindControlInmune, Mothership
+	Targetable@AIRBORNE:
+		TargetTypes: Air, MindControlInmune, Mothership
+	Armament:
+		Weapon: FighterSpawn
+	CarrierMaster:
+		Actors: STORMRIDERSPAWN, STORMRIDERSPAWN, STORMRIDERSPAWN, STORMRIDERSPAWN, STORMRIDERSPAWN, STORMRIDERSPAWN
+		RespawnTicks: 200
+		RearmTicks: 10
+		InstaRepair: true
+	AttackTurreted:
+	Turreted:
+	AutoTarget:
+	-WithFacingSpriteBody:
+	WithInfantryBody:
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: SCRCARRIER.Husk
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
 
-Mech:
-	Voices:
-		Select: 15-i000, 15-i006, 15-i040, 15-i042
-		Move: 15-i024, 15-i044
-		Attack: 15-i006, 15-i046
-		Action: 15-i006, 15-i046
+STORMRIDERSPAWN:
+	Inherits: STORMRIDER
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^ScrinRender
+	Inherits@Shadow: ^AircraftShadow
+	EditorOnlyTooltip:
+		Name: Assault Carrier Drone (Do not place in editor)
+	Tooltip:
+		Name: Wyverm
+	GainsExperienceMultiplier:
+		Modifier: 10
+	Valued:
+		Cost: 30
+	-Buildable:
+	Selectable:
+		Bounds: 30,24
+		Class: Stormrider
+	Aircraft:
+		Repulsable: false
+		TurnSpeed: 20
+		Speed: 150
+	Armament:
+		Weapon: WyvermBlast
+	Armament@AA:
+		Weapon: WyvermBlastAA
+	WithFacingSpriteBody:
+	BodyOrientation:
+		QuantizedFacings: 32
+	Health:
+		HP: 5000
+	CarrierSlave:
+		LandingDistance: 1c0
+	-UpdatesPlayerStatistics:
+	-ActorLostNotification:
+	-AppearsOnRadar:
+	RejectsOrders:
+	RenderSprites:
+		Image: wyverm2
+	AutoTarget:
+		ScanRadius: 20
+		InitialStance: AttackAnything
+	ExternalCondition@Return:
+		Condition: ForceReturn
+	-SpawnActorOnDeath:
+	-SmokeParticleEmitter:
+	-GrantConditionOnDamageState@spawnsparks:
+	-ExplodeWeapon@spawnsparks:
+	-ExternalCondition@spawnsparks:
 
-Heli:
-	Voices:
-		Select: 30-i000, 30-i002, 30-i004, 30-i006
-		Move: 30-i014, 30-i016, 30-i018, 30-i022
-		Unload: 30-i014, 30-i016, 30-i018, 30-i022
-		Action: 30-i014, 30-i016, 30-i018, 30-i022
-		Attack: 30-i022, 30-i030, 30-i034, 30-i036
+CABDRONEJET:
+	Inherits: STORMRIDERSPAWN
+	Inherits@1: ^CabRender
+	Armament:
+		Weapon: CabJetMiniBomb
+	EditorOnlyTooltip:
+		Name: Drone pit Drone (Do not place in editor)
+	Tooltip:
+		Name: Cabal Drone
+	-Armament@AA:
+	Valued:
+		Cost: 50
+	Health:
+		HP: 8000
+	RenderSprites:
+		Image: cabdronejet
+	Aircraft:
+		MaximumPitch: 90
+		TurnSpeed: 30
+		Speed: 200
+		AirborneCondition: airborne
+		AltitudeVelocity: 600
+		MoveIntoShroud: true
+	AttackAircraft:
+		AttackTurnDelay: 25
+	RejectsOrders:
+	-SelectionDecorations:
 
-Civilian:
-	Voices:
-		Select: 30-i022
-		Move: 30-i022
-		Attack: 30-i022
-		Action: 30-i022
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
+SCRBATTLESHIP:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^ScrinRender
+	Inherits@3: ^PermanentSelfHeal
+	Inherits@4: ^CommandoIcon
+	Inherits@5: ^ScrinAircratVoice
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 4000
+	Tooltip:
+		Name: Battlecruiser
+	Buildable:
+		Description: Scrin flagship\n\nStrong vs Ground units\n\nSpecial:\n- Maximum Supply of 1.\n- Auto repairs.\n- Can absorb essence from killed enemies to heal.\n- Can attack enemies while moving.
+		Queue: Air
+		BuildPaletteOrder: 12
+		Prerequisites: ~scrair, scradvpowr
+		BuildLimit: 1
+	Selectable:
+		Bounds: 90,55
+	Targetable@Essence:
+		TargetTypes: ScrinUnit
+	AnnounceOnSeen:
+		Notification: BattleCruiserDetected
+	Aircraft:
+		TurnSpeed: 5
+		Speed: 60
+		Repulsable: true
+		MoveIntoShroud: true
+	Health:
+		HP: 150000
+	Armament:
+		Weapon: BattleshipCannon
+		LocalOffset: 0,0,0, 450,-200,0, -750,500,0, 600,-500,0, -750,0,300
+	AttackTurreted:
+	Turreted:
+	AutoTarget:
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: SCRBATTLESHIP.Husk
+	SmokeParticleEmitter:
+		Image: scrsmoke
+		Palette: apolbluealpha60
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
 
-CivilianFemale: #can be used for female mutant as well
-	Voices:
-		Select: 30-i022
-		Move: 30-i022
-		Action: 30-i022
-		Attack: 30-i022
-		Die: dedgirl1, dedgirl2, dedgirl4
-		Burned: dedgirl3
-		Zapped: electro1
+WASP:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^BasicStealthDetection
+	Inherits@4: ^9CellVision
+	Inherits@5: ^CabRender
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 1400
+	Tooltip:
+		Name: Wasp
+	Buildable:
+		Description: Aerial drone armed with dual laser cannons.\n\nGood vs: Vehicles, Aircraft\n\nSpecial:\n- Can attack air\n- detects stealth
+		Queue: Air
+		BuildPaletteOrder: 1
+		Prerequisites: ~cabair
+	Selectable:
+		Bounds: 40,30
+	Aircraft:
+		TurnSpeed: 6
+		Speed: 130
+		Repulsable: true
+		MoveIntoShroud: true
+	Health:
+		HP: 12000
+	Voiced:
+		VoiceSet: Limpet
+	Armament@1:
+		Weapon: WaspLasor
+		LocalOffset: 250,350,-100
+	Armament@2:
+		Weapon: WaspLasor
+		AmmoPoolName: Rocket
+		LocalOffset: 250,-350,-100
+	Armament@3:
+		Weapon: WaspLasorAA
+		AmmoPoolName: Rocket
+		LocalOffset: 250,-350,-100
+	Armament@4:
+		Weapon: WaspLasorAA
+		AmmoPoolName: Rocket
+		LocalOffset: 250, 350,-100
+	Armament@TheRealThing:
+		Weapon: WaspBullet
+	Armament@TheRealThingAA:
+		Weapon: WaspBulletAA
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+	WithFacingSpriteBody:
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: WASP.Husk
 
-Scrin:
-	Voices:
-		Select: 32-i000
-		Move: 32-i002, 32-i004
-		Attack: 32-i006
-		Action: 32-i006
-		Die: 32-i008
+FIREFLY:
+	Inherits: ^CombatHelicopter
+	Inherits@5: ^CabRender
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Firefly
+	Buildable:
+		Description: Support drone that deploys turrets.\n\nSpecial:\n- unarmed\n- Deployes turrets\n- rearms at Service Depot\n- detects stealth
+		Queue: Air
+		BuildPaletteOrder: 13
+		Prerequisites: ~disabled #~cabair, cabradr, gadept
+	Selectable:
+		Bounds: 40,30
+		Priority: 4
+	Voiced:
+		VoiceSet: Limpet
+	Aircraft:
+		TurnSpeed: 6
+		Speed: 120
+		Repulsable: true
+		-RearmBuildings: gahpad
+		MoveIntoShroud: true
+		AllowedTerrainTypes: Clear, Ice, Rough, Road, DirtRoad, Ground, Green, Tiberium, BlueTiberium
+	Health:
+		HP: 10000
+	RenderSprites:
+	WithFacingSpriteBody:
+	BodyOrientation:
+		QuantizedFacings: 32
+	SpawnActorOnDeath:
+		Actor: FIREFLY.Husk
+	-GainsExperience:
 
-######################################################################
-#Shared Custom
-######################################################################
+BASILISK:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@4: ^CabRender
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 2500
+	Tooltip:
+		Name: Basilisk
+	Buildable:
+		Description: Light frigate armed with firestorm rockets.\n\nGood vs: Infantry.
+		Queue: Air
+		BuildPaletteOrder: 14
+		Prerequisites: ~cabair, cabtech
+	Selectable:
+		Bounds: 60,48
+	Voiced:
+		VoiceSet: Limpet
+	Aircraft:
+		TurnSpeed: 6
+		Speed: 75
+		MoveIntoShroud: true
+	Health:
+		HP: 50000
+	Armament:
+		Weapon: BasiliskBomb
+		LocalOffset: 128,0,0, 500,-700,0, 500,700,0
+	AttackAircraft:
+		FacingTolerance: 20
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+	WithFacingSpriteBody:
+	SpawnActorOnDeath:
+		Actor: BASILISK.Husk
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
 
-HumanHarvesterVO:
-	Voices:
-		Select: harv0001, harv0002, harv0003, harv0004, harv0005, harv0006, harv0007
-		Move: harv0008, harv0009, harv0010, harv0011, harv0012, harv0013, harv0014
-		Attack: harv0015, harv0016, harv0017, harv0018, harv0019, harv0020, harv0021
-		Action: harv0022, harv0023, harv0024, harv0025, harv0026, harv0027, harv0028
-		Die: harv0029, harv0030, harv0031, harv0032
-######################################################################
-#GDI Custom
-######################################################################
-Marine:
-	Voices:
-		Select: marine0015, marine0016, marine0017, marine0018, marine0019
-		Move: marine0009, marine0010, marine0011, marine0012, marine0014
-		Attack: marine0009, marine0010, marine0011, marine0012, marine0014
-		Action: marine0009, marine0010, marine0011, marine0012, marine0014
-		# Feedback: 15-i058, 15-i064 # TODO
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
-
-Jumpjet:
-	Voices:
-		Select: jumpjetquotes0015, jumpjetquotes0016, jumpjetquotes0017, jumpjetquotes0018, jumpjetquotes0019
-		Move: jumpjetquotes0010, jumpjetquotes0011, jumpjetquotes0012, jumpjetquotes0013, jumpjetquotes0014
-		Attack: jumpjetquotes0000, jumpjetquotes0001, jumpjetquotes0002, jumpjetquotes0003, jumpjetquotes0004
-		Action: jumpjetquotes0006, jumpjetquotes0007
-		Die: jjdeath0000, jjdeath0001, jjdeath0002, jjtoxindeath0000, dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: jjburndeath0000, jjburndeath0001
-		Zapped: electro1
-
-Jumpjet2:
-	Voices:
-		Select: jumpjetquotes0015, jumpjetquotes0016, jumpjetquotes0017, jumpjetquotes0018, jumpjetquotes0019
-		Move: jumpjetquotes0010, jumpjetquotes0011, jumpjetquotes0012, jumpjetquotes0013, jumpjetquotes0014
-		Attack: jumpjetquotes0000, jumpjetquotes0001, jumpjetquotes0002, jumpjetquotes0003, jumpjetquotes0004
-		Action: jumpjetquotes0008, jumpjetquotes0009
-		Die: jjdeath0000, jjdeath0001, jjdeath0002, jjtoxindeath0000, dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: jjburndeath0000, jjburndeath0001
-		Zapped: electro1
-
-
-GuardianVO:
-	Voices:
-		Select: guardian0001, guardian0002, guardian0003, guardian0004, guardian0005, guardian0006, guardian0007
-		Move: guardian0008, guardian0009, guardian0010, guardian0011, guardian0012, guardian0013, guardian0014
-		Attack: guardian0015, guardian0016, guardian0017, guardian0017, guardian0018, guardian0019, guardian0020, guardian0021
-		Action: guardian0006
-		Action1: guardian0029
-		Action2: guardian0030
-		Die: guardian0035, guardian0036, guardian0037
-		Kill: guardian0022, guardian0023, guardian0024, guardian0025
-		Build: guardian0031, guardian0032, guardian0033
-
-######################################################################
-#Nod Custom
-######################################################################
-
-Templar:
-	Voices:
-		Select: templarquotes0011, templarquotes0012, templarquotes0013, templarquotes0014, templarquotes0015
-		Move: templarquotes0006, templarquotes0007, templarquotes0008, templarquotes0009, templarquotes0010
-		Attack: templarquotes0000, templarquotes0001, templarquotes0002, templarquotes0003, templarquotes0004
-		Action: templarquotes0000, templarquotes0001, templarquotes0002, templarquotes0003, templarquotes0004
-		Die: templartoxindeath0000, templardeath0000, templardeath0001, templardeath0002, dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: templarburndeath0000, templarburndeath0000, dedman2
-		Zapped: electro1
-
-BlackHand:
-	Voices:
-		Select: blackhand0021, blackhand0022, blackhand0023, blackhand0024, blackhand0025
-		Move: blackhand0014, blackhand0015, blackhand0016, blackhand0017, blackhand0018
-		Attack: blackhand0000, blackhand0001, blackhand0002, blackhand0003, blackhand0004
-		Action: blackhand0011, blackhand0012, blackhand0013
-		Die: blackhand0007, blackhand0008, blackhand0009, blackhand0010
-		Burned: blackhand0005, blackhand0006
-		Zapped: electro1
-
-StealthTankVO:
-	Voices:
-		Select: stnk0001, stnk0002, stnk0003, stnk0004, stnk0005
-		Move: stnk0006, stnk0007, stnk0008, stnk0009, stnk0010
-		Attack: stnk0011, stnk0012, stnk0013, stnk0014, stnk0015
-		Action: stnk0011, stnk0012, stnk0013, stnk0014, stnk0015
-		Die: stnk0016, stnk0017, stnk0018
-
-######################################################################
-#Mutant Custom
-######################################################################
-Marauder:
-	Voices:
-		Select: marauderquotes0014, marauderquotes0015, marauderquotes0016, marauderquotes0017, marauderquotes0018
-		Move: marauderquotes0009, marauderquotes0010, marauderquotes0011, marauderquotes0012, marauderquotes0014, marauderquotes0013
-		Attack: marauderquotes0000, marauderquotes0001, marauderquotes0002, marauderquotes0003, marauderquotes0004
-		Action: marauderquotes0006, marauderquotes0007, marauderquotes0008
-		Die: maraudertoxindeath0001, marauderdeath0000, marauderdeath0001, marauderdeath0002, dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: marauderburndeath0000, marauderburndeath0001, dedman2
-		Zapped: electro1
-
-Skirmisher:
-	Voices:
-		Select: skirmisherquotes0011, skirmisherquotes0012, skirmisherquotes0013, skirmisherquotes0014, skirmisherquotes0015
-		Move: skirmisherquotes0006, skirmisherquotes0007, skirmisherquotes0008, skirmisherquotes0009, skirmisherquotes0010
-		Attack: skirmisherquotes0000, skirmisherquotes0001, skirmisherquotes0002, skirmisherquotes0003, skirmisherquotes0004
-		Action: skirmisherquotes0000, skirmisherquotes0001, skirmisherquotes0002, skirmisherquotes0003, skirmisherquotes0004
-		Die: skirmishetoxindeath0000, skirmisherdeath0000, skirmisherdeath0001, skirmisherdeath0002, dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: skirmisheburndeath0000, skirmisheburndeath0001, dedman2
-		Zapped: electro1
-
-Trike:
-	Voices:
-		Select: trike0010, trike0011, trike0012, trike0013
-		Move: trike0007, trike0008, trike0009, trike00014
-		Attack: trike0000, trike0001, trike0002, trike0003, trike0004, trike0005, trike0006
-		Action: trike0000, trike0001, trike0002, trike0003, trike0004, trike0005, trike0006
-		# Feedback: 15-i058, 15-i064 # TODO
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
-
-MutantMCV:
-	DefaultVariant: .wav
-	Voices:
-		Select: fmcv_s1, fmcv_s2, fmcv_s3, fmcv_s4, fmcv_s5, fmcv_s6, fmcv_s7, fmcv_s8, fmcv_s9, fmcv_s10
-		Move: fmcv_m1, fmcv_m2, fmcv_m3, fmcv_m4, fmcv_m5, fmcv_m6, fmcv_m7, fmcv_m8, fmcv_m9, fmcv_m10
-		Action: fmcv_m1, fmcv_m2, fmcv_m3, fmcv_m4, fmcv_m5, fmcv_m6, fmcv_m7, fmcv_m8, fmcv_m9, fmcv_m10
-
-DemoTruck:
-	Voices:
-		Select: demotruckvoice0000, demotruckvoice0001, demotruckvoice0002, demotruckvoice0003, demotruckvoice0012
-		Move: demotruckvoice0009, demotruckvoice0010, demotruckvoice0011, demotruckvoice0013, demotruckvoice0016
-		Attack: demotruckvoice0006, demotruckvoice0007, demotruckvoice0008, demotruckvoice0014, demotruckvoice0015
-		Action: demotruckvoice0006, demotruckvoice0007, demotruckvoice0008, demotruckvoice0014, demotruckvoice0015
-		Repair: demotruckvoice0005, demotruckvoice0004
-		Die: dedman1, dedman3, dedman4, dedman5, dedman6
-		Burned: dedman2
-		Zapped: electro1
-
-######################################################################
-#CABAL Custom
-######################################################################
-
-Cyborg:
-	Voices:
-		Select: 22-i000, 22-i002, 22-i006
-		Move: 22-i008, 22-i010, 22-i014, 22-i016, 22-i020
-		Attack: 22-i008, 22-i010, 22-i012, 22-i018
-		Action: 22-i008, 22-i010, 22-i014, 22-i016, 22-i020
-		Die: 22-n104, 22-n106, 22-n108
-		Burned: 22-n106
-		Zapped: electro1
-
-CabalVehicle:
-	Voices:
-		Select: cabvehicle0000, cabvehicle0001, cabvehicle0002, cabvehicle0003, cabvehicle0004 
-		Move: cabvehicle0005, cabvehicle0006, cabvehicle0007, cabvehicle0008, cabvehicle0009
-		Attack: cabvehicle0010, cabvehicle0011, cabvehicle0012, cabvehicle0013, cabvehicle0014
-		Action: cabvehicle0005, cabvehicle0006, cabvehicle0007, cabvehicle0008, cabvehicle0009
-		Die: 22-n104, 22-n106, 22-n108
-		Burned: 22-n106
-		Zapped: electro1
-
-CyborgReap:
-	Voices:
-		Select: 60-n100, 60-n102, 60-n104
-		Move: 60-n106, 60-n108, 60-n110
-		Action: 60-n106, 60-n108, 60-n110
-		Attack: 60-n112, 60-n114, 60-n116
-		Die: spiddie1
-		Burned: 22-n106
-		Zapped: electro1
-
-Limpet:
-	Voices:
-		Select: limpc3, limpc4, limpq3, limpq4
-		Move: limpc3, limpc4, limpq3, limpq4
-		Unload: limpc3, limpc4, limpq3, limpq4
-		Action: limpc3, limpc4, limpq3, limpq4
-		Attack: limpc3, limpc4, limpq3, limpq4
-		Die: expnew12, expnew13, expnew14, expnew15
-		Burned: 22-n106
-		Zapped: electro1
-
-######################################################################
-#Scrin Custom
-######################################################################
-
-
-Desintegrator:
-	Voices:
-		Select: desintegrator0012,  desintegrator0013,  desintegrator0014,  desintegrator0015
-		Move: desintegrator0007,  desintegrator0008,  desintegrator0009,  desintegrator0010,  desintegrator0011
-		Attack: desintegrator0000,  desintegrator0001,  desintegrator0002,  desintegrator0003
-		Action: desintegrator0000,  desintegrator0001,  desintegrator0002,  desintegrator0003
-		Die: desintegrator0004,  desintegrator0005,  desintegrator0006
-		Burned: desintegrator0004,  desintegrator0005,  desintegrator0006
-		Zapped: desintegrator0004,  desintegrator0005,  desintegrator0006
-
-Seeker:
-	Voices:
-		Select: SeekerVoice0010, SeekerVoice0011, SeekerVoice0012, SeekerVoice0013, SeekerVoice0014
-		Move: SeekerVoice0005, SeekerVoice0006, SeekerVoice0007, SeekerVoice0008, SeekerVoice0009 
-		Attack: SeekerVoice0000, SeekerVoice0001, SeekerVoice0002, SeekerVoice0003, SeekerVoice0004 
-		Action: SeekerVoice0000, SeekerVoice0001, SeekerVoice0002, SeekerVoice0003, SeekerVoice0004 
-		Die: SeekerVoice0000
-
-Deva:
-	Voices:
-		Select: devaquote0009, devaquote0010, devaquote0011
-		Move: devaquote0006, devaquote0007, devaquote0008
-		Attack: devaquote0000, devaquote0001, devaquote0002
-		Action: devaquote0000, devaquote0001, devaquote0002
-		Die: devaquote0003, devaquote0004, devaquote0005
-
-Tripod:
-	Voices:
-		Select: TripSound0001, TripSound0002, TripSound0003
-		Move: TripSound0003, TripSound0004, TripSound0005
-		Attack: TripSound0006, TripSound0007, TripSound0008
-		Action: TripSound0006, TripSound0007, TripSound0008
-		Die: TripSound0011, TripSound0012
+DEVOURER:
+	Inherits: ^CombatHelicopter
+	Inherits@1: ^AutoTargetAllAssaultMove
+	Inherits@2: ^PermanentSelfHeal
+	Inherits@3: ^CabRender
+	Inherits@Shadow: ^AircraftShadow
+	Valued:
+		Cost: 2000
+	Tooltip:
+		Name: Devourer
+	Buildable:
+		Queue: Air
+		Description: Heavy and slow siege frigate.\n\nGood vs: Buildings\n\nSpecial:\n- Selfrepairs.\n- Can attack units while moving.
+		BuildPaletteOrder: 15
+		Prerequisites: ~cabair, cabtech
+	Selectable:
+		Bounds: 80, 60, 0, -24
+	Aircraft:
+		TurnSpeed: 6
+		Speed: 35
+		CruiseAltitude: 0c750
+		Repulsable: true
+		MoveIntoShroud: true
+	Health:
+		HP: 175000
+	Voiced:
+		VoiceSet: Limpet
+	GrantConditionOnAttack:
+		Condition: DevoBuff
+		RevokeDelay: 35
+	Armament@Primary:
+		Weapon: DevourerGrinder
+	AttackTurreted:
+		Voice: Attack
+		PauseOnCondition: empdisable
+	Turreted:
+		TurnSpeed: 3
+	AutoTarget:
+		ScanRadius: 5
+	RenderSprites:
+	WithFacingSpriteBody@idle:
+		RequiresCondition: !DevoBuff
+		Sequence: idle
+	WithFacingSpriteBody@attack:
+		Sequence: shoot
+		RequiresCondition: DevoBuff
+	BodyOrientation:
+		QuantizedFacings: 8
+	SpawnActorOnDeath:
+		Actor: DEVOURER.Husk
+	ExternalCondition@DevoBuff:
+		Condition: DevoBuff
+	Explodes@Shrapnel:
+		Weapon: BigAircraftShrapnel
+		EmptyWeapon: BigAircraftShrapnel
