@@ -375,7 +375,7 @@ Player:
 			gadept: 6000
 	BuildingRepairBotModule:
 		RequiresCondition: AIReload
-	SquadManagerBotModule@test:
+	SquadManagerBotModuleSP@test:
 		RequiresCondition: AIReload
 		SquadSize: 35
 		SquadSizeRandomBonus: 30
@@ -813,3 +813,5 @@ Player:
 		CapturingActorTypes: engineer, e2, swarmling, shapeshifter
 		CapturableActorTypes: cahosp, neutralsonictur, caarmr, well, machineshop, scrinreinfpad, gacnst, mutyard, cabyard, nodyard, drached
 		CheckCaptureTargetsForVisibility: false
+	PowerDownBotModuleSP:
+		RequiresCondition: AIReload

@@ -25,6 +25,9 @@
       <HintPath>../engine/thirdparty/download/Eluant.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="FuzzyLogicLibrary">
+      <HintPath>..\engine\thirdparty\download\FuzzyLogicLibrary.dll</HintPath>
+    </Reference>
     <ProjectReference Include="../engine/OpenRA.Game/OpenRA.Game.csproj">
       <Private>False</Private>
     </ProjectReference>
